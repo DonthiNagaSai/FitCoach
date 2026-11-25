@@ -1,7 +1,7 @@
 // Server-side helper for Groq's OpenAI-compatible chat API (free tier).
 // Never import this from a client component: it reads GROQ_API_KEY.
 
-export const MODEL = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile'
+export const MODEL = process.env.GROQ_MODEL || 'openai/gpt-oss-120b'
 
 type ChatMessage = { role: 'system' | 'user' | 'assistant'; content: string }
 
@@ -28,6 +28,8 @@ export async function chat(
       messages,
       max_tokens: opts.maxTokens ?? 1024,
       temperature: 0.6,
+      // gpt-oss models think before answering; keep that short so replies stay fast
+      ...(MODEL.startsWith('openai/gpt-oss') ? { reasoning_effort: 'low' } : {}),
       ...(opts.json ? { response_format: { type: 'json_object' } } : {}),
     }),
   })

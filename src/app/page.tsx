@@ -79,7 +79,7 @@ export default function Landing() {
         <div className="relative max-w-4xl mx-auto fade-up">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono mb-8" style={{ background: 'rgba(196,255,71,0.1)', color: '#c4ff47', border: '1px solid rgba(196,255,71,0.2)' }}>
             <span className="w-1.5 h-1.5 rounded-full bg-[#c4ff47] animate-pulse" />
-            Powered by Llama 3.3 on Groq · Portfolio demo
+            Powered by GPT-OSS 120B on Groq · Portfolio demo
           </div>
 
           <h1 className="font-display text-5xl md:text-7xl font-semibold mb-4" style={{ color: 'var(--foreground)', letterSpacing: '-0.04em', lineHeight: '1.05' }}>

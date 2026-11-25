@@ -2,13 +2,13 @@
 
 A full-stack fitness app. You tell it about yourself, and it builds a 7-day workout split and a meal plan with calorie and macro targets. A chat coach answers questions with your profile and current plan as context, and a progress page charts your weight over time.
 
-Built with Next.js, TypeScript and Tailwind on the front end, Supabase for sign-in and the database, and Llama 3.3 running on Groq's free tier for the AI parts. The whole thing runs at no cost.
+Built with Next.js, TypeScript and Tailwind on the front end, Supabase for sign-in and the database, and OpenAI's open-weight GPT-OSS 120B model running on Groq's free tier for the AI parts. The whole thing runs at no cost.
 
 ## Stack
 
 - Next.js 15 (App Router), TypeScript and Tailwind CSS v4
 - Supabase: Postgres, built-in auth and Row Level Security
-- Groq's OpenAI-compatible API (Llama 3.3 70B), called only from server-side routes
+- Groq's OpenAI-compatible API (GPT-OSS 120B), called only from server-side routes
 - Recharts for the progress chart
 
 ## Features

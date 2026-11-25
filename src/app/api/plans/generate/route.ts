@@ -50,7 +50,7 @@ Include all 7 days (use "rest": true and an empty exercises array for rest days)
 
   let workout, diet
   try {
-    const text = await chat([{ role: 'user', content: prompt }], { maxTokens: 6000, json: true })
+    const text = await chat([{ role: 'user', content: prompt }], { maxTokens: 8000, json: true })
     const parsed = parseJsonObject(text)
     workout = parsed.workout
     diet = parsed.diet

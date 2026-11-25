@@ -4,6 +4,8 @@ A full-stack fitness app. You tell it about yourself, and it builds a 7-day work
 
 Built with Next.js, TypeScript and Tailwind on the front end, Supabase for sign-in and the database, and OpenAI's open-weight GPT-OSS 120B model running on Groq's free tier for the AI parts. The whole thing runs at no cost.
 
+**Live demo:** https://fitcoach-ai-navy-one.vercel.app (sign up with any email, it's free)
+
 ## Stack
 
 - Next.js 15 (App Router), TypeScript and Tailwind CSS v4

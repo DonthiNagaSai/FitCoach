@@ -119,7 +119,7 @@ export default function Coach() {
           <div className="font-semibold text-sm" style={{ color: 'var(--foreground)' }}>FitCoach AI</div>
           <div className="flex items-center gap-1.5 text-xs" style={{ color: 'var(--muted-foreground)' }}>
             <span className="w-1.5 h-1.5 rounded-full bg-[#c4ff47]" />
-            Online · Powered by Claude
+            Online · Powered by Llama 3.3 on Groq
           </div>
         </div>
       </div>

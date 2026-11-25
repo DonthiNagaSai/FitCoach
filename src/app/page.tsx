@@ -4,24 +4,24 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
 const features = [
-  { icon: '⚡', title: 'AI-Generated Plans', desc: 'Daily workout and meal plans tailored to your body, goals, and equipment — refreshed every morning.' },
-  { icon: '🤖', title: 'Conversational Coach', desc: 'Chat with an AI that knows your full profile, current plan, and recent progress. Adjust anything mid-session.' },
-  { icon: '📈', title: 'Progress Tracking', desc: 'Weight trends, body measurements, streak counters, and milestone badges — visualized beautifully.' },
-  { icon: '🥗', title: 'Smart Nutrition', desc: 'Macro-balanced meal plans that adapt to dietary restrictions, allergies, and your caloric targets.' },
-  { icon: '📅', title: 'Weekly Planning', desc: 'See the full week at a glance. Swap days, scale intensity, and reschedule without losing momentum.' },
-  { icon: '🔔', title: 'Daily Reminders', desc: 'Gentle nudges when it matters most — workout reminders, weight log prompts, weekly summaries.' },
+  { icon: '⚡', title: 'AI-Generated Plans', desc: 'A 7-day workout split and a meal plan tailored to your body, goal, activity level and equipment. Regenerate it any time.' },
+  { icon: '🤖', title: 'Conversational Coach', desc: 'Chat with an AI coach that knows your profile and current plan, and get specific answers instead of generic advice.' },
+  { icon: '📈', title: 'Progress Tracking', desc: 'Log your weight and see the trend over time on a chart.' },
+  { icon: '🥗', title: 'Smart Nutrition', desc: 'Meals built around your dietary restrictions, with daily calorie, protein, carb and fat targets.' },
+  { icon: '📅', title: 'Weekly View', desc: 'See the full week of workouts at a glance, with sets, reps, weights and rest times for each exercise.' },
+  { icon: '🔒', title: 'Private by Design', desc: 'Supabase Row Level Security means each account can only ever read and write its own data.' },
 ]
 
-const testimonials = [
-  { name: 'Maria C.', role: 'Lost 18 lbs in 3 months', avatar: 'MC', quote: "The AI coach actually remembers everything. I told it my knee was bothering me and it swapped all my leg exercises automatically." },
-  { name: 'Devon K.', role: 'Added 15 lbs of muscle', avatar: 'DK', quote: "Having a plan that adjusts when I skip a day instead of just failing — that's what finally made it stick." },
-  { name: 'Priya N.', role: 'Marathon finisher', avatar: 'PN', quote: "I'm vegetarian and have a gluten sensitivity. Finally an app that builds around me instead of forcing workarounds." },
+const steps = [
+  { step: '1', title: 'Tell it about you', desc: 'Age, height, weight, goal, activity level, diet restrictions and the equipment you have.' },
+  { step: '2', title: 'Get your plan', desc: 'The AI builds a 7-day workout split and a daily meal plan with calorie and macro targets.' },
+  { step: '3', title: 'Ask your coach', desc: 'Chat with an AI coach that knows your profile and current plan, and log your weight to track progress.' },
 ]
 
 const stats = [
-  { value: '94%', label: 'of users hit their 30-day goal' },
-  { value: '2.4M', label: 'workouts completed' },
-  { value: '23 days', label: 'average streak' },
+  { value: '7-day', label: 'workout split in every plan' },
+  { value: '4', label: 'daily macro targets' },
+  { value: 'Free', label: 'to sign up and use' },
   { value: '<2min', label: 'to generate your first plan' },
 ]
 
@@ -79,7 +79,7 @@ export default function Landing() {
         <div className="relative max-w-4xl mx-auto fade-up">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono mb-8" style={{ background: 'rgba(196,255,71,0.1)', color: '#c4ff47', border: '1px solid rgba(196,255,71,0.2)' }}>
             <span className="w-1.5 h-1.5 rounded-full bg-[#c4ff47] animate-pulse" />
-            Powered by Claude AI · Now in public beta
+            Powered by Llama 3.3 on Groq · Portfolio demo
           </div>
 
           <h1 className="font-display text-5xl md:text-7xl font-semibold mb-4" style={{ color: 'var(--foreground)', letterSpacing: '-0.04em', lineHeight: '1.05' }}>
@@ -90,7 +90,7 @@ export default function Landing() {
           </h1>
 
           <p className="text-lg md:text-xl mt-8 mb-10 max-w-2xl mx-auto" style={{ color: 'var(--muted-foreground)', lineHeight: '1.65' }}>
-            FitCoach AI generates personalized workout and diet plans daily, then refines them through conversation — adapting to your schedule, soreness, and real life.
+            FitCoach AI builds a personalized workout and diet plan from your profile, then answers your questions through chat with your plan as context.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -102,7 +102,7 @@ export default function Landing() {
             </button>
           </div>
 
-          <p className="mt-4 text-xs" style={{ color: 'var(--muted-foreground)' }}>No credit card required · Cancel anytime</p>
+          <p className="mt-4 text-xs" style={{ color: 'var(--muted-foreground)' }}>No credit card required · Free portfolio demo</p>
         </div>
 
         <div className="relative max-w-5xl mx-auto mt-20">
@@ -140,7 +140,7 @@ export default function Landing() {
                 ))}
                 <div className="mt-6 p-3 rounded-xl text-xs" style={{ background: 'rgba(196,255,71,0.08)', border: '1px solid rgba(196,255,71,0.15)' }}>
                   <div className="font-medium mb-1" style={{ color: '#c4ff47' }}>AI Coach</div>
-                  <span style={{ color: 'var(--muted-foreground)' }}>Great push session today! Based on your sleep data, I&apos;d suggest dropping intensity 10% tomorrow...</span>
+                  <span style={{ color: 'var(--muted-foreground)' }}>Great push session today! Based on your plan, I&apos;d keep tomorrow light and focus on mobility...</span>
                 </div>
               </div>
             </div>
@@ -184,19 +184,14 @@ export default function Landing() {
       <section className="px-6 md:px-16 py-24" style={{ borderTop: '1px solid var(--border)' }}>
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-semibold" style={{ color: 'var(--foreground)', letterSpacing: '-0.03em' }}>Real results.<br /><span className="gradient-text italic">Real people.</span></h2>
+            <h2 className="font-display text-4xl md:text-5xl font-semibold" style={{ color: 'var(--foreground)', letterSpacing: '-0.03em' }}>How it works.<br /><span className="gradient-text italic">Three steps.</span></h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {testimonials.map(t => (
-              <div key={t.name} className="glass p-6 rounded-2xl">
-                <p className="text-sm leading-relaxed mb-6" style={{ color: 'var(--card-foreground)' }}>&quot;{t.quote}&quot;</p>
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-semibold" style={{ background: 'rgba(196,255,71,0.15)', color: '#c4ff47' }}>{t.avatar}</div>
-                  <div>
-                    <div className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>{t.name}</div>
-                    <div className="text-xs" style={{ color: 'var(--muted-foreground)' }}>{t.role}</div>
-                  </div>
-                </div>
+            {steps.map(st => (
+              <div key={st.step} className="glass p-6 rounded-2xl">
+                <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-semibold mb-4" style={{ background: 'rgba(196,255,71,0.15)', color: '#c4ff47' }}>{st.step}</div>
+                <div className="text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>{st.title}</div>
+                <p className="text-sm leading-relaxed" style={{ color: 'var(--card-foreground)' }}>{st.desc}</p>
               </div>
             ))}
           </div>
@@ -218,7 +213,7 @@ export default function Landing() {
       <footer className="px-6 md:px-16 py-8" style={{ borderTop: '1px solid var(--border)' }}>
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <span className="font-display text-sm font-semibold" style={{ color: 'var(--muted-foreground)' }}>FitCoach AI</span>
-          <span className="text-xs font-mono" style={{ color: 'var(--muted-foreground)' }}>© 2026 · Built with Claude AI</span>
+          <span className="text-xs font-mono" style={{ color: 'var(--muted-foreground)' }}>© 2026 · Built with Next.js, Supabase and Groq</span>
         </div>
       </footer>
     </div>

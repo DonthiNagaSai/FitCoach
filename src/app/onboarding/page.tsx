@@ -93,7 +93,7 @@ export default function Onboarding() {
       if (profileError) throw profileError
 
       setGenProgress(40)
-      setGenLabel('Claude is designing your workout split')
+      setGenLabel('AI is designing your workout split')
       const res = await fetch('/api/plans/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -269,11 +269,11 @@ export default function Onboarding() {
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c4ff47" strokeWidth="1.5" strokeLinecap="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
               </div>
               <h2 className="font-display text-2xl font-semibold mb-2" style={{ color: 'var(--foreground)', letterSpacing: '-0.03em' }}>Building your plan…</h2>
-              <p className="text-sm mb-8" style={{ color: 'var(--muted-foreground)' }}>Claude AI is generating your personalized workout and meal plan</p>
+              <p className="text-sm mb-8" style={{ color: 'var(--muted-foreground)' }}>AI is generating your personalized workout and meal plan</p>
 
               {genError ? (
                 <div className="px-4 py-3 rounded-xl text-sm text-left" style={{ background: 'rgba(255,80,80,0.1)', color: '#ff6b6b', border: '1px solid rgba(255,80,80,0.2)' }}>
-                  {genError}. Make sure ANTHROPIC_API_KEY and Supabase env vars are set, then{' '}
+                  {genError}. You can{' '}
                   <button onClick={startGeneration} className="underline">try again</button>.
                 </div>
               ) : (

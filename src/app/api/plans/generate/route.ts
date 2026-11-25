@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server'
 import { createServerSupabaseClient } from '@/lib/supabase/server'
-import { getAnthropicClient, MODEL } from '@/lib/ai'
+import { chat, parseJsonObject, AIError } from '@/lib/ai'
+import { countToday, DAILY_PLAN_LIMIT } from '@/lib/limits'
 
-// Generates a personalized workout + diet plan by prompting Claude with the
+// Generates a personalized workout + diet plan by prompting the AI model with the
 // user's profile, parses the structured JSON it returns, and stores it in
 // the `plans` table. Called from Onboarding (first plan) and the
 // "Regenerate plan" buttons on Workouts/Diet.
@@ -14,6 +15,13 @@ export async function POST(req: Request) {
 
   if (!user) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
+  }
+
+  if ((await countToday(supabase, 'plans', user.id)) >= DAILY_PLAN_LIMIT) {
+    return NextResponse.json(
+      { error: `You've generated ${DAILY_PLAN_LIMIT} plans today. Please try again tomorrow.` },
+      { status: 429 }
+    )
   }
 
   const profile = await req.json()
@@ -42,24 +50,16 @@ Include all 7 days (use "rest": true and an empty exercises array for rest days)
 
   let workout, diet
   try {
-    const anthropic = getAnthropicClient()
-    const response = await anthropic.messages.create({
-      model: MODEL,
-      max_tokens: 4096,
-      messages: [{ role: 'user', content: prompt }],
-    })
-
-    const text = response.content.find((b) => b.type === 'text')?.text ?? '{}'
-    const cleaned = text.trim().replace(/^```json\s*/, '').replace(/```$/, '')
-    const parsed = JSON.parse(cleaned)
+    const text = await chat([{ role: 'user', content: prompt }], { maxTokens: 6000, json: true })
+    const parsed = parseJsonObject(text)
     workout = parsed.workout
     diet = parsed.diet
+    if (!workout?.weekPlan || !diet?.meals) throw new Error('AI reply was missing the workout or diet section')
   } catch (err) {
     console.error('Plan generation failed:', err)
-    return NextResponse.json(
-      { error: 'Failed to generate plan. Check ANTHROPIC_API_KEY is set correctly.' },
-      { status: 500 }
-    )
+    const status = err instanceof AIError ? err.status : 500
+    const message = status === 429 ? (err as Error).message : 'Failed to generate plan. Please try again.'
+    return NextResponse.json({ error: message }, { status })
   }
 
   const { data, error } = await supabase

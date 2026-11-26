@@ -1,0 +1,31 @@
+#!/bin/bash
+# Boot script: install Docker, pull app config from SSM, run the container.
+set -euo pipefail
+
+dnf install -y docker
+systemctl enable --now docker
+
+# Build the .env file from SSM Parameter Store, e.g. /fitcoach/GROQ_API_KEY
+mkdir -p /opt/fitcoach
+aws ssm get-parameters-by-path \
+  --region ${region} \
+  --path "${ssm_prefix}" \
+  --with-decryption \
+  --query 'Parameters[*].[Name,Value]' \
+  --output text \
+  | while IFS=$'\t' read -r name value; do
+      echo "$${name##*/}=$value"
+    done > /opt/fitcoach/.env
+chmod 600 /opt/fitcoach/.env
+
+docker pull ${image}
+
+docker run -d \
+  --name fitcoach \
+  --restart unless-stopped \
+  -p 80:3000 \
+  --env-file /opt/fitcoach/.env \
+  --log-driver awslogs \
+  --log-opt awslogs-region=${region} \
+  --log-opt awslogs-group=${log_group} \
+  ${image}

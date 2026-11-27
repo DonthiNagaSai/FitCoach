@@ -5,10 +5,26 @@ data "aws_vpc" "default" {
   default = true
 }
 
+# Not every availability zone offers every instance type (us-east-1e has no t3.micro),
+# so only use subnets in zones where the chosen type is available
+data "aws_ec2_instance_type_offerings" "available" {
+  location_type = "availability-zone"
+
+  filter {
+    name   = "instance-type"
+    values = [var.instance_type]
+  }
+}
+
 data "aws_subnets" "default" {
   filter {
     name   = "vpc-id"
     values = [data.aws_vpc.default.id]
+  }
+
+  filter {
+    name   = "availability-zone"
+    values = data.aws_ec2_instance_type_offerings.available.locations
   }
 }
 

@@ -154,7 +154,7 @@ resource "aws_eip" "app" {
 resource "aws_cloudwatch_metric_alarm" "status_check" {
   alarm_name          = "fitcoach-status-check-failed"
   namespace           = "AWS/EC2"
-  metric_name         = "StatusCheckFailed"
+  metric_name         = "StatusCheckFailed_System"
   statistic           = "Maximum"
   period              = 60
   evaluation_periods  = 2
